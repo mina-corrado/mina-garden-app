@@ -1,3 +1,18 @@
+# Presentazione del progetto
+
+Vivaio virtuale di rose che si apre con una presentazione sulle rose, su cosa simboleggiano e con possibili citazioni letterarie e poetiche
+
+## Obiettivo del progetto
+
+Promuvuore l'acquisto, la coltivazione delle rose, delle specie più antiche belle e profumate
+
+## Tecnologie utilizzate
+
+React, node e mongodb
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

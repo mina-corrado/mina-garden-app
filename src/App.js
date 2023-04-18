@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './views/Home';
+import Catalog from './views/Catalog';
+import Admin from './views/Admin';
+import Login from './views/Login';
+import Offerte from './views/Offerte';
+import Registration from './views/Registration';
+import ValidateToken from './views/ValidateToken';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <Router>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/catalogo" element={<Catalog />} />
+          <Route path="/offerte" element={<Offerte />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registrati" element={<Registration />} />
+          <Route path="/validateToken/:token" element={<ValidateToken />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
