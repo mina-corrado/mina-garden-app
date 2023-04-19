@@ -6,6 +6,7 @@ import Page from "../components/Page";
 const Registration = props => {
     const token = localStorage.getItem("token");
     const [validated, setValidated] = useState(false);
+    const basepath = process.env.REACT_APP_BASE_PATH;
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -42,7 +43,7 @@ const Registration = props => {
             method: 'POST',
             body: JSON.stringify(data)
         }
-        fetch('/api/authors', headers).then(res=>res.json())
+        fetch(`${basepath}/api/users`, headers).then(res=>res.json())
         .then(res=>{
             // reset
             form.querySelector('#registration-form-nome').value = '';
@@ -51,7 +52,7 @@ const Registration = props => {
             form.querySelector('#registration-form-username').value = '';
             form.querySelector('#registration-form-password').value = '';
             form.querySelector('#registration-form-re-password').value = '';
-
+            setValidated(false);
             console.log("success registration")
         }, (err)=>{
             //gestione errore

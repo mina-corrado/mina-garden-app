@@ -6,6 +6,7 @@ import Page from "../components/Page";
 
 const Login = props => {
     const navigate = useNavigate();
+    const basepath = process.env.REACT_APP_BASE_PATH;
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -27,13 +28,14 @@ const Login = props => {
             method: 'POST',
             body: JSON.stringify(data)
         }
-        fetch('/api/login', headers).then(res=>res.json())
+        fetch(`${basepath}/api/login`, headers).then(res=>res.json())
         .then(res=>{
             // reset
             form.querySelector('#login-form-username').value = '';
             form.querySelector('#login-form-password').value = '';
 
-            console.log("success login")
+            console.log("success login");
+            localStorage.removeItem('token');
             localStorage.setItem('token', res.token);
             navigate("/");
         }, (err)=>{

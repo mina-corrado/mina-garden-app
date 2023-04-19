@@ -43,19 +43,26 @@ router.get('/api/roses/:id', async (req, res, next) => {
     }
     
 });
-router.patch('/api/roses/:id/avatar', cloudMulter.single('avatar'), async (req, res) => {
-    console.log("patch roses/:id/avatar ");
+router.patch('/api/roses/:id/photos', cloudMulter.array('photos', 8), async (req, res, next) => {
     const {id} = req.params;
-    const userRequestId = req.body.id;
+    const userRequestId = req.userid;
     const userRequestBy = await User.findById(userRequestId);
-    if (!userRequestBy.isAdmin) {
+    if (!userRequestBy || !userRequestBy.isAdmin) {
         return next(new Error("No auth"));
     }
 
     let result;
     try {
         if(req.file){
-            const result = await Rose.updateOne({_id: id},{ avatar: req.file.path});
+            const photosCloud = [req.file.path];
+            // console.log(`CLOUD one ${photosCloud}`);
+            const result = await Rose.updateOne({_id: id},{ photos: photosCloud});
+
+            console.log("result ",result);
+        } else if(req.files && req.files.length > 0){
+            const photosCloud = req.files.map(file => file.path);
+            // console.log(`CLOUD more ${photosCloud}`);
+            const result = await Rose.updateOne({_id: id},{ photos: photosCloud});
 
             console.log("result ",result);
         }

@@ -4,7 +4,7 @@ const GoogleStrategy = require('passport-google-oidc');
 const jwt = require('jsonwebtoken');
 const jwt_secret = process.env.JWT_SECRET;
 
-const Author = require('../models/User');
+const User = require('../models/User');
 const router = express.Router();
 
 passport.use(new GoogleStrategy({
@@ -19,10 +19,10 @@ passport.use(new GoogleStrategy({
         if (profile.emails && profile.emails.length > 0){
             email = profile.emails[0].value;
         }
-        const user = await Author.findOne({email: email});
+        const user = await User.findOne({email: email});
         console.log(`User ${user}`);
         if (!user){
-            const newAutore = new Author({
+            const newAutore = new User({
                 nome: profile.name.givenName, 
                 cognome: profile.name.familyName,
                 verified: true,
@@ -59,13 +59,13 @@ router.get('/api/oauth/google', passport.authenticate('google'));
 router.get('/api/oauth/redirect/google', 
     passport.authenticate('google', {failureRedirect: '/login'}), (req, res) => {
         // console.log('Res *****************', res);
-        const author = req.user;
-        console.log('Author mail ', author.email);
-        const token = jwt.sign({ id: author._id, 
-            nome: author.nome, 
-            cognome: author.cognome,
-            email: author.email,
-            isAdmin: author.isAdmin,
+        const user = req.user;
+        console.log('User mail ', user.email);
+        const token = jwt.sign({ id: user._id, 
+            nome: user.nome, 
+            cognome: user.cognome,
+            email: user.email,
+            isAdmin: user.isAdmin,
         }, jwt_secret);
         res.status(200).redirect(`/validateToken/${token}`);
 });

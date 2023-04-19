@@ -10,6 +10,7 @@ const Admin = () => {
     const handleChange = useCallback(value => {
       setText(value);
     });
+    const basepath = process.env.REACT_APP_BASE_PATH;
   
     const token = localStorage.getItem("token");
   
@@ -26,7 +27,7 @@ const Admin = () => {
       const data = {
         title: form.querySelector('#rose-form').value,
         category: form.querySelector('#rose-category').value,
-        content: text
+        description: text
       };
       const headers = {
           headers: {
@@ -37,7 +38,7 @@ const Admin = () => {
           body: JSON.stringify(data)
       }
   
-      fetch('/api/roses', headers).then(res=>res.json())
+      fetch(`${basepath}/api/roses`, headers).then(res=>res.json())
       .then(res=>{
         // reset
         form.querySelector('#rose-form').value = '';

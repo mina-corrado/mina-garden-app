@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors')
-require('dotenv').config();
+const dotenv = require('dotenv')
+dotenv.config();
+dotenv.config({ path: `.env.local`, override: true });
 //console.log(process.env)
 const session = require('express-session');
 const path = require('path');

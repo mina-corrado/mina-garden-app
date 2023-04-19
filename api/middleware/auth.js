@@ -11,6 +11,7 @@ const auth = (req, res, next) => {
         const token = authorization.split(" ")[1];
         const user = jwt.verify(token, jwt_secret);
         req.body.id = user.id;
+        req.userid = user.id;
         // console.log("user => ",user)
         next();
     } catch(err) {
