@@ -10,3 +10,47 @@ input {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.title-logo {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 40px;
+}
+
+.title-logo path {
+  fill: transparent;
+}
+
+.title-logo text {
+  fill: #fff;
+}
+
+.more-button {
+  font-style: italic;
+}
+
+.card {
+  margin-bottom: 1em;
+}
+
+.card-horizontal {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.card-horizontal img {
+  width: 33%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .card-horizontal {
+    flex-direction: column;
+  }
+  .card-horizontal img {
+    width: 100%;
+    border-top-right-radius: var(--bs-card-inner-border-radius); 
+    border-top-left-radius: var(--bs-card-inner-border-radius);
+    border-bottom-left-radius: 0;
+  }
+}
