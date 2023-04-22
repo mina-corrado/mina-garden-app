@@ -4,12 +4,13 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from '../assets/logo.jpg';
 
-const TopNavbar = () => {
+const TopNavbar = (props) => {
+  const count = props.items;
   return (
     <>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img
               src={logo}
               width="72"
@@ -20,10 +21,11 @@ const TopNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="me-auto w-100">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/catalogo">Catalogo</Nav.Link>
               <Nav.Link href="/offerte">Offerte</Nav.Link>
+              <Nav.Link href="/ordine"  className='ms-lg-auto'>Ordine ({count})</Nav.Link>
               <NavDropdown title="Account" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/login">Accedi</NavDropdown.Item>
                 <NavDropdown.Divider />

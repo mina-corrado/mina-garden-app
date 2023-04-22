@@ -5,7 +5,7 @@ const Page = (props) => {
     return(
     <>
         <header>
-            <TopNavbar></TopNavbar>
+            <TopNavbar items={0}></TopNavbar>
         </header>
         <main>
             {props.children}

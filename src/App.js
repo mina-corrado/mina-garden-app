@@ -6,6 +6,7 @@ import Login from './views/Login';
 import Offerte from './views/Offerte';
 import Registration from './views/Registration';
 import ValidateToken from './views/ValidateToken';
+import RosePage from './views/RosePage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" exact element={<Home />} />
+          <Route path="/catalogo/:roseId" element={<RosePage />} />
+          <Route path="/catalogo/page/:pageNum" element={<Catalog />} />
           <Route path="/catalogo" element={<Catalog />} />
           <Route path="/offerte" element={<Offerte />} />
           <Route path="/admin" element={<Admin />} />

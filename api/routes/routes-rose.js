@@ -43,7 +43,7 @@ router.get('/api/roses/:id', async (req, res, next) => {
     }
     
 });
-router.patch('/api/roses/:id/photos', cloudMulter.array('photos', 8), async (req, res, next) => {
+router.patch('/api/roses/:id/photos', cloudMulter.array('photos', 12), async (req, res, next) => {
     const {id} = req.params;
     const userRequestId = req.userid;
     const userRequestBy = await User.findById(userRequestId);
@@ -66,6 +66,7 @@ router.patch('/api/roses/:id/photos', cloudMulter.array('photos', 8), async (req
 
             console.log("result ",result);
         }
+        
         result = await Rose.findById(id);
         return res.json(result);
     } catch (err) {
@@ -85,7 +86,7 @@ router.post('/api/roses', async (req, res, next) => {
     try {
 
         const newRose = new Rose({...body});
-        const result = newRose.save();
+        const result = await newRose.save();
 
         return res.status(201).json({result});            
     } catch (err) {

@@ -32,6 +32,10 @@ input {
   margin-bottom: 1em;
 }
 
+.card-title a {
+  color: black;
+}
+
 .card-horizontal {
   display: flex;
   flex: 1 1 auto;
@@ -53,4 +57,72 @@ input {
     border-top-left-radius: var(--bs-card-inner-border-radius);
     border-bottom-left-radius: 0;
   }
+}
+
+.top-container {
+  padding-bottom: 5rem;
+}
+
+.top-container h2 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.rose-listing {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.rose-listing .card-horizontal img {
+  width: 50%;
+  cursor: pointer;
+}
+
+.rose-listing .card {
+  height: 250px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1023px) {
+  .rose-listing .card {
+    height: auto;
+  }
+  .rose-listing .card-horizontal {
+    flex-direction: column;
+  }
+  .rose-listing .card-horizontal img {
+    width: 100%;
+    border-top-right-radius: var(--bs-card-inner-border-radius); 
+    border-top-left-radius: var(--bs-card-inner-border-radius);
+    border-bottom-left-radius: 0;
+  }
+}
+
+.rose-single {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.roseCarouselItem{
+  border: 1px solid gray;
+  background-color: #000;
+}
+.roseCarouselItem img {
+  width: auto !important;
+  max-height: 75vh;
+  margin: auto;
+}
+
+.spinner-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-around;
+}
+
+.admin-container {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
