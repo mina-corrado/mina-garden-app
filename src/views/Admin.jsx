@@ -1,24 +1,24 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Page from '../components/Page';
-import { Button, Container, Form } from "react-bootstrap";
-import ReactQuill from "react-quill";
+import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import "react-quill/dist/quill.snow.css";
 import "./styles.css";
+import FormRose from "../components/FormRose";
 
 const Admin = () => {
     const [text, setText] = useState("");
     const [photos, setPhotos] = useState([]);
+    const [rose, setRose] = useState(null);
     const [displayNew, setDisplayNew] = useState(false);
     const [displayEdit, setDisplayEdit] = useState(false);
-
     const handleChange = useCallback(value => {
-      setText(value);
+        setText(value);
     });
     const basepath = process.env.REACT_APP_BASE_PATH;
   
     const token = localStorage.getItem("token");
   
-    const onSubmit = (event) => {
+    const onSubmitNew = (event) => {
       event.preventDefault();
   
       
@@ -79,73 +79,104 @@ const Admin = () => {
           console.log(err);
       })
     }
-    
+
+    const onSubmitGetRose = (event) => {
+      event.preventDefault();
+      // id and fetch rose
+      const form = event.currentTarget;
+      const id = form.querySelector('#roseid-form').value;
+
+      const headers = {
+          headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+          },
+          method: 'GET'
+      }
+      fetch(`${basepath}/api/roses/${id}`, headers).then(res=>res.json()).then(res=>{
+        // success
+        setRose(res);
+      }, (err) => {
+        console.log(err)
+      })
+    }
+
+    const onSubmitModify = (event) => {
+      // modify rose
+    }
+
     const handleClickNew = () => {
       setDisplayNew(true);
       setDisplayEdit(false);
+      
+      setRose(null);
     }
     const handleClickEdit = () => {
       setDisplayNew(false);
       setDisplayEdit(true);
+      
+      setRose(null);
     }
     return(
         <Page>
           <Container className="admin-container">
-            <div className="toolbar">
-              <Button onClick={handleClickNew}>Nuova Rosa</Button>
-              <Button onClick={handleClickEdit}>Modifica Rosa</Button>
-            </div>
-            {displayNew &&
-              <Container className="new-rose-container">
-                <Form className="mt-5" onSubmit={onSubmit}>
-                  <Form.Group controlId="rose-form" className="mt-3">
-                    <Form.Label>Titolo Rosa</Form.Label>
-                    <Form.Control size="lg" placeholder="Title" />
-                  </Form.Group>
-                  <Form.Group controlId="rose-category" className="mt-3">
-                    <Form.Label>Categoria Rosa</Form.Label>
-                    <Form.Control size="lg" as="select">
-                      <option>Rosa Rampicante</option>
-                      <option>Rosa Perenne</option>
-                      <option>Rosa Stagionale</option>
-                      <option>Rosa Invernale</option>
-                      <option>Rosa Estiva</option>
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId="rose-content" className="mt-3">
-                    <Form.Label>Descrizione Rosa</Form.Label>
-                    <ReactQuill value={text} onChange={handleChange} className="new-rose-content" />
-                  </Form.Group>
-                  <Form.Group controlId="photos" className="mt-3">
-                    <Form.Label>Upload Foto</Form.Label>
-                    <Form.Control 
-                    type="file" 
-                    multiple
-                    onChange={(e) => setPhotos(e.target.files)} />
-                  </Form.Group>
-                  <Form.Group className="d-flex mt-3 justify-content-end">
-                    <Button type="reset" size="lg" variant="outline-dark">
-                      Reset
-                    </Button>
-                    <Button
-                      type="submit"
-                      size="lg"
-                      variant="dark"
-                      style={{
-                        marginLeft: "1em",
-                      }}
-                    >
-                      Invia
-                    </Button>
-                  </Form.Group>
-                </Form>
-              </Container>
-            }
-            {displayEdit &&
-              <Container className="edit-rose-container">
-                Edit
-              </Container>
-            }
+            <Row>
+              <Col lg="2">
+                <div className="toolbar">
+                  <Button onClick={handleClickNew}>Nuova Rosa</Button>
+                  <Button onClick={handleClickEdit}>Modifica Rosa</Button>
+                </div>
+              </Col>
+              <Col lg="10">
+                {displayNew &&
+                  <Container className="new-rose-container">
+                    <h2>Nuova Rosa</h2>
+                    <FormRose 
+                      onSubmit={onSubmitNew} 
+                      handleChangeText={handleChange}
+                      handleChangePhotos={(photos)=>setPhotos(photos)}
+                      text={text}></FormRose>
+                  </Container>
+                }
+                {displayEdit &&
+                  <Container className="edit-rose-container">
+                    <h2>Modifica Rosa</h2>
+                    {!rose &&
+                        <Form className="mt-0" onSubmit={onSubmitGetRose}>
+                          <Form.Group controlId="roseid-form" className="mt-0">
+                              <Form.Label>ID Rosa</Form.Label>
+                              <Form.Control size="lg" placeholder="ID" />
+                          </Form.Group>
+                          <Form.Group className="d-flex mt-3 justify-content-end">
+                          <Button type="reset" size="lg" variant="outline-dark">
+                              Reset
+                          </Button>
+                          <Button
+                              type="submit"
+                              size="lg"
+                              variant="dark"
+                              style={{
+                              marginLeft: "1em",
+                              }}
+                          >
+                              Invia
+                          </Button>
+                          </Form.Group>
+                        </Form>
+                    }
+                    {rose &&
+                      <FormRose
+                        data={rose}
+                        onSubmit={onSubmitModify} 
+                        handleChangeText={handleChange}
+                        handleChangePhotos={(photos)=>setPhotos(photos)}
+                        text={text}
+                        hideFile={true}></FormRose>
+                    }
+                  </Container>
+                }
+              </Col>
+            </Row>
           </Container>
 
         </Page>
