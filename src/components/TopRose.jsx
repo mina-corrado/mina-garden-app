@@ -40,8 +40,8 @@ const TopRose = (props) => {
         //     }
         //     </Row>
         // </Container>
-        <RoseListing limit={8} usePagination={false}>
-            <h2>La nostra selezione top</h2>
+        <RoseListing limit={props.limit} usePagination={false}>
+            <h2>{props.label ? props.label : 'La nostra selezione top'}</h2>
         </RoseListing>
     )
 }

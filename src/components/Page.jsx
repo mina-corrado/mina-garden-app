@@ -2,6 +2,7 @@ import TopNavbar from '../components/TopNavbar';
 import BottomNavbar from '../components/BottomNavbar';
 
 const Page = (props) => {
+    
     return(
     <>
         <header>

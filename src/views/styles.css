@@ -128,3 +128,7 @@ input {
   margin-top: 4rem;
   margin-bottom: 4rem;
 }
+
+.text-justify {
+  text-align: justify;
+}

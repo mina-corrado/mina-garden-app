@@ -31,7 +31,8 @@ const Admin = () => {
       const data = {
         title: form.querySelector('#rose-form').value,
         category: form.querySelector('#rose-category').value,
-        description: text
+        description: text,
+        price: form.querySelector('#rose-price').value
       };
       const headers = {
           headers: {
@@ -70,6 +71,8 @@ const Admin = () => {
           console.log('success photos ');
           setPhotos([]);
           form.reset();
+
+          resetAdmin();
         }, (err)=>{
           //gestione errore foto
           console.log(err);
@@ -78,6 +81,13 @@ const Admin = () => {
           //gestione errore
           console.log(err);
       })
+    }
+
+    const resetAdmin = () => {
+      setDisplayNew(false);
+      setDisplayEdit(false);
+        
+      setRose(null);
     }
 
     const onSubmitGetRose = (event) => {
@@ -103,6 +113,40 @@ const Admin = () => {
 
     const onSubmitModify = (event) => {
       // modify rose
+      event.preventDefault();
+      // id and fetch rose
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        return;
+      }
+      
+      const data = {
+        title: form.querySelector('#rose-form').value,
+        category: form.querySelector('#rose-category').value,
+        description: text,
+        price: form.querySelector('#rose-price').value
+      };
+      const id = rose._id;
+
+      const headers = {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          method: 'PUT',
+          body: JSON.stringify(data)
+      }
+      fetch(`${basepath}/api/roses/${id}`, headers).then(res=>res.json()).then(res=>{
+        // success
+        // reset
+        form.querySelector('#rose-form').value = '';
+        form.querySelector('#rose-category').value = '';
+        setText('');
+        
+        resetAdmin();
+      }, (err) => {
+        console.log(err)
+      })
     }
 
     const handleClickNew = () => {
@@ -144,7 +188,7 @@ const Admin = () => {
                     {!rose &&
                         <Form className="mt-0" onSubmit={onSubmitGetRose}>
                           <Form.Group controlId="roseid-form" className="mt-0">
-                              <Form.Label>ID Rosa</Form.Label>
+                              <Form.Label>Immetti ID Rosa</Form.Label>
                               <Form.Control size="lg" placeholder="ID" />
                           </Form.Group>
                           <Form.Group className="d-flex mt-3 justify-content-end">

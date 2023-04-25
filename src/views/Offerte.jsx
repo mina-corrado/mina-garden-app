@@ -1,9 +1,10 @@
 import Page from '../components/Page';
+import TopRose from '../components/TopRose';
 
 const Offerte = () => {
     return(
         <Page>
-            This is offerte
+            <TopRose label='Le nostre Offerte' limit={8}></TopRose>
         </Page>
     )
 }
