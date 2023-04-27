@@ -132,3 +132,33 @@ input {
 .text-justify {
   text-align: justify;
 }
+
+p.card-text {
+  margin-bottom: 0;
+}
+
+p.card-text p {
+  margin-bottom: 0;
+}
+
+.order-list .col-lg-6:not(.buy) {
+  background-color: goldenrod;
+}
+
+.order-list .col-lg-6:not(.buy) > .row{
+  min-width: 468px;
+}
+
+.order-list .col-lg-6.round-top {
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.order-list .col-lg-6.round-bottom {
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.order-list .col-lg-6.round-top > div {
+  border-bottom: 1px solid black;
+}

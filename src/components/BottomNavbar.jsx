@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { UserContext } from '../context/Context';
 
 const BottomNavbar = () => {
-    const user = useContext(UserContext);
+    const {user} = useContext(UserContext);
   return (
     <>
         <div style={{flex: 1, display: 'flex', flexDirection: 'row'}}>

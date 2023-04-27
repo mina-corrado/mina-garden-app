@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CarouselRose from "./CarouselRose";
 import { Col, Container, Row, Button, Spinner } from "react-bootstrap";
 import Loader from "./Loader";
+import AddButton from "./AddButton";
 
 const Rose = (props) => {
     const {id} = props;
@@ -43,7 +44,7 @@ const Rose = (props) => {
                         <div className="description">
                             <div dangerouslySetInnerHTML={markupDescr}></div>
                         </div>
-                        <Button variant="primary" className="mt-5">Aggiungi</Button>
+                        <AddButton className="mt-5"></AddButton>
                     </Col>
                 </Row>
             </Container>
