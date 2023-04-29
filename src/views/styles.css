@@ -112,7 +112,11 @@ input {
   max-height: 75vh;
   margin: auto;
 }
-
+@media screen and (max-width: 600px) {
+  .roseCarouselItem img {
+    width: 100% !important;
+  }
+}
 .spinner-container {
   text-align: center;
   margin-top: 50px;
@@ -142,7 +146,11 @@ p.card-text {
 p.card-text p {
   margin-bottom: 0;
 }
-
+@media screen and (max-width: 600px) {
+  p.card-text {
+    display: none;
+  }
+}
 .order-list .col-lg-6:not(.buy) {
   background-color: goldenrod;
 }
