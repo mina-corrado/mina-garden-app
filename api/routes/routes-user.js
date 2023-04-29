@@ -31,9 +31,9 @@ router.get('/api/users', async (req, res, next) => {
 router.get('/api/users/:id', async (req, res, next) => {
     console.log("get users/:id ");
     const {id} = req.params;
-    const userRequestId = req.body.id;
+    const userRequestId = req.userid;
     const userRequestBy = await User.findById(userRequestId);
-    if (!userRequestBy.isAdmin) {
+    if (!userRequestBy.isAdmin && id != userRequestId) {
         return next(new Error("No auth"));
     }
     let result;
@@ -72,11 +72,11 @@ router.post('/api/users', async (req, res, next) => {
     console.log("post users ");
     const body = req.body;
     const password = req.body.password;
-    const userRequestId = req.body.id;
-    const userRequestBy = await User.findById(userRequestId);
-    if (!userRequestBy.isAdmin) {
-        return next(new Error("No auth"));
-    }
+    // const userRequestId = req.body.id;
+    // const userRequestBy = await User.findById(userRequestId);
+    // if (!userRequestBy.isAdmin) {
+    //     return next(new Error("No auth"));
+    // }
     const saltRounds = 10;
     try {
         bcrypt.genSalt(saltRounds, (err, salt) => {

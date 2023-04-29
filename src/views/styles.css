@@ -26,6 +26,7 @@ input {
 
 .more-button {
   font-style: italic;
+  cursor: pointer;
 }
 
 .card {
@@ -115,6 +116,7 @@ input {
 .spinner-container {
   text-align: center;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .toolbar {
@@ -145,9 +147,9 @@ p.card-text p {
   background-color: goldenrod;
 }
 
-.order-list .col-lg-6:not(.buy) > .row{
+/* .order-list .col-lg-6:not(.buy) > .row{
   min-width: 468px;
-}
+} */
 
 .order-list .col-lg-6.round-top {
   border-top-right-radius: 6px;

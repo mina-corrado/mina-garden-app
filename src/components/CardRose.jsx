@@ -53,7 +53,7 @@ const CardRose = (props) => {
             <Card.Text dangerouslySetInnerHTML={markupDescr}>
             </Card.Text>
             <p className='mt-0'>
-              Prezzo: <strong>{price} EUR</strong>
+              Prezzo: <strong>{price.$numberDecimal} EUR</strong>
             </p>
             <AddButton onClick={handleAddClick}></AddButton>
           </Card.Body>

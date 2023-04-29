@@ -18,6 +18,7 @@ const MongoStore = require('connect-mongo');
 const routesUser = require('./routes/routes-user');
 const routesRose = require('./routes/routes-rose');
 const routesOauth = require('./routes/routes-oauth');
+const routesOrder = require('./routes/routes-order');
 
 //middleware
 const logger = require('./middleware/logger');
@@ -42,8 +43,9 @@ const unless = (middleware, ...paths) => {
 
 app.use(logger);
 app.use(errorHandler);
-app.use(unless( auth, '/', '/manifest.json', '/login', '/api/login','/api/oauth/google', '/api/oauth/redirect/google', '/favicon.ico' ));
+app.use(unless( auth, '/', '/manifest.json', '/login', '/api/login','/api/oauth/google', '/api/oauth/redirect/google', '/favicon.ico', '/api/users', '^/api/roses' ));
 
+app.use(routesOrder);
 app.use(routesRose);
 app.use(routesUser);
 

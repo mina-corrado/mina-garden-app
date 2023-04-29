@@ -12,9 +12,9 @@ router.get('/api/roses', async (req, res, next) => {
     const userRequestId = req.body.id;
     const userRequestBy = await User.findById(userRequestId);
     console.log("get roses ", userRequestBy);
-    if (!userRequestBy.isAdmin) {
-        return next(new Error("No auth"));
-    }
+    // if (!userRequestBy.isAdmin) {
+    //     return next(new Error("No auth"));
+    // }
     try {
         const {page = '1', size = '4'} = req.query;
         const result = await Rose.find()
@@ -31,9 +31,9 @@ router.get('/api/roses/:id', async (req, res, next) => {
     const {id} = req.params;
     const userRequestId = req.body.id;
     const userRequestBy = await User.findById(userRequestId);
-    if (!userRequestBy.isAdmin) {
-        return next(new Error("No auth"));
-    }
+    // if (!userRequestBy.isAdmin) {
+    //     return next(new Error("No auth"));
+    // }
     let result;
     try {
         result = await Rose.findById(id);

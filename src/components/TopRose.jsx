@@ -41,7 +41,12 @@ const TopRose = (props) => {
         //     </Row>
         // </Container>
         <RoseListing limit={props.limit} usePagination={false}>
-            <h2>{props.label ? props.label : 'La nostra selezione top'}</h2>
+            
+                {props.label ? 
+                    <h1>{props.label}</h1> 
+                    : 
+                    <h2>La nostra selezione top</h2>
+                }
         </RoseListing>
     )
 }

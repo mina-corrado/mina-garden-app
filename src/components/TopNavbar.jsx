@@ -6,15 +6,17 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from '../assets/logo.jpg';
 import { UserContext } from '../context/Context';
 import { FaRegUser, FaSignOutAlt, FaCog, FaUserPlus } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const TopNavbar = (props) => {
   const count = props.items;
   const {user, setUser} = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setUser(null);
+    navigate("/");
   }
 
   return (

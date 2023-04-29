@@ -29,7 +29,7 @@ const Hero = (props) => {
             {isReadMore && 
                 <p className="p-3 col-md-12 fs-4 text-justify">{props.otherText}</p>
             }
-            <Button href={props.link} className="btn btn-primary btn-lg">{props.labelButton}</Button>
+            <Button as={Link} to={props.link} className="btn btn-primary btn-lg">{props.labelButton}</Button>
         </div>
     </div>
     )

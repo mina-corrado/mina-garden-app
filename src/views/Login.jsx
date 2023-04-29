@@ -3,10 +3,14 @@ import { Button, Container, Form} from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import "./styles.css";
 import Page from "../components/Page";
+import { useContext } from 'react';
+import { UserContext } from '../context/Context';
+import jwt_decode from "jwt-decode";
 
 const Login = props => {
     const navigate = useNavigate();
     const basepath = process.env.REACT_APP_BASE_PATH;
+    const {setUser} = useContext(UserContext);
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -37,6 +41,7 @@ const Login = props => {
             console.log("success login");
             localStorage.removeItem('token');
             localStorage.setItem('token', res.token);
+            setUser(jwt_decode(res.token));
             navigate("/");
         }, (err)=>{
             //gestione errore

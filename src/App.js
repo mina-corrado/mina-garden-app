@@ -13,10 +13,11 @@ import { UserContext, OrderContext } from './context/Context';
 import jwt_decode from "jwt-decode";
 import NotFound from './views/NotFound';
 import Ordine from './views/Ordine';
+import Account from './views/Account';
 
 function App() {
   const token = localStorage.getItem('token');
-  const [user, setUser] = useState(jwt_decode(token));
+  const [user, setUser] = useState(token && token.length>0 ? jwt_decode(token) : null);
   const [order, setOrder] = useState([]);
 
   return (
@@ -37,6 +38,7 @@ function App() {
               <Route path="/catalogo" element={<Catalog />} />
               <Route path="/offerte" element={<Offerte />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/account" element={<Account />} />
               <Route path="/login" element={<Login />} />
               <Route path="/registrati" element={<Registration />} />
               <Route path="/validateToken/:token" element={<ValidateToken />} />

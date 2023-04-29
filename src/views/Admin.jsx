@@ -4,6 +4,7 @@ import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import "react-quill/dist/quill.snow.css";
 import "./styles.css";
 import FormRose from "../components/FormRose";
+import DisplayOrders from "../components/DisplayOrders";
 
 const Admin = () => {
     const [text, setText] = useState("");
@@ -11,6 +12,8 @@ const Admin = () => {
     const [rose, setRose] = useState(null);
     const [displayNew, setDisplayNew] = useState(false);
     const [displayEdit, setDisplayEdit] = useState(false);
+    const [displayOrders, setDisplayOrders] = useState(false);
+
     const handleChange = useCallback(value => {
         setText(value);
     });
@@ -152,12 +155,21 @@ const Admin = () => {
     const handleClickNew = () => {
       setDisplayNew(true);
       setDisplayEdit(false);
+      setDisplayOrders(false);
       
       setRose(null);
     }
     const handleClickEdit = () => {
       setDisplayNew(false);
       setDisplayEdit(true);
+      setDisplayOrders(false);
+      
+      setRose(null);
+    }
+    const handleClickOrders = () => {
+      setDisplayNew(false);
+      setDisplayEdit(false);
+      setDisplayOrders(true);
       
       setRose(null);
     }
@@ -169,6 +181,7 @@ const Admin = () => {
                 <div className="toolbar">
                   <Button onClick={handleClickNew}>Nuova Rosa</Button>
                   <Button onClick={handleClickEdit}>Modifica Rosa</Button>
+                  <Button onClick={handleClickOrders}>Ordini</Button>
                 </div>
               </Col>
               <Col lg="10">
@@ -218,6 +231,9 @@ const Admin = () => {
                         hideFile={true}></FormRose>
                     }
                   </Container>
+                }
+                {displayOrders &&
+                  <DisplayOrders></DisplayOrders>
                 }
               </Col>
             </Row>

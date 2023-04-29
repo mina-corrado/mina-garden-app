@@ -2,11 +2,32 @@ import React, {useState} from "react";
 import { Button, Container, Form} from "react-bootstrap";
 import "./styles.css";
 import Page from "../components/Page";
+import { useNavigate } from "react-router-dom";
+
+const random = () => {
+    return Math.ceil(Math.random() * 50);
+}
 
 const Registration = props => {
     const token = localStorage.getItem("token");
     const [validated, setValidated] = useState(false);
     const basepath = process.env.REACT_APP_BASE_PATH;
+    const random1 = random();
+    const random2 = random();
+    const random3 = random();
+    const total = random1 + random2 - random3;
+    const navigate = useNavigate();
+
+    const handleMath = (event) => {
+        const number = Number(event.target.value);
+        const button = document.querySelector('.registration-container [type="submit"]');
+        if (total === number) {
+            button.disabled = false;
+        } else {
+            button.disabled = true;
+        }
+        
+    }
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -53,7 +74,8 @@ const Registration = props => {
             form.querySelector('#registration-form-password').value = '';
             form.querySelector('#registration-form-re-password').value = '';
             setValidated(false);
-            console.log("success registration")
+            console.log("success registration");
+            navigate('/login');
         }, (err)=>{
             //gestione errore
             console.log(err);
@@ -102,6 +124,10 @@ const Registration = props => {
                 Reinserisci la password (minimo 8 caratteri).
                 </Form.Control.Feedback>
                 </Form.Group>
+                <Form.Group controlId="registration-form-math" className="mt-3">
+                    <Form.Label>Quanto fa <em>{random1}</em> + <em>{random2}</em> - <em>{random3}</em>?</Form.Label>
+                    <Form.Control size="lg" placeholder="0" type="number" required onChange={handleMath}/>
+                </Form.Group>
                 
                 <Form.Group className="d-flex mt-3 justify-content-end">
                     <Button
@@ -111,6 +137,7 @@ const Registration = props => {
                     style={{
                         marginLeft: "1em",
                     }}
+                    disabled
                     >
                     Registrami
                     </Button>
