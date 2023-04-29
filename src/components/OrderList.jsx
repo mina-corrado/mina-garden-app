@@ -62,7 +62,7 @@ const OrderList = () => {
         }, err=>{
             console.log(err);
         })
-    },[]);
+    },[basepath, token]);
 
     return( 
         <>

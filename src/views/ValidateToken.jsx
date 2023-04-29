@@ -10,7 +10,7 @@ const ValidateToken = props => {
       const { token } = params;
       localStorage.setItem("token", token);
       navigate('/');
-  }, []);
+  }, [navigate, params]);
 
   
     return (

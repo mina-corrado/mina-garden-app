@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import logo from '../assets/logo.jpg';
 import {ReactComponent as TitleLogo} from '../assets/mina-garden.svg';
 

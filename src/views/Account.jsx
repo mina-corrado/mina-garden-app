@@ -27,7 +27,7 @@ const Account = () => {
         //gestione errore 
         console.log(err);
       });
-    },[])
+    },[basepath, token, user.id])
 
     if (!account) {
       return <Loader />

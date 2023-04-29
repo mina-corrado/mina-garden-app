@@ -14,6 +14,7 @@ const Admin = () => {
     const [displayEdit, setDisplayEdit] = useState(false);
     const [displayOrders, setDisplayOrders] = useState(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleChange = useCallback(value => {
         setText(value);
     });

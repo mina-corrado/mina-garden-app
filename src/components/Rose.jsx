@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CarouselRose from "./CarouselRose";
-import { Col, Container, Row, Button, Spinner } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Loader from "./Loader";
 import AddButton from "./AddButton";
 
@@ -25,7 +25,7 @@ const Rose = (props) => {
             //gestione errore
             console.log(err);
         })  
-    }, []);
+    }, [basepath, id, token]);
 
     if (rose == null) {
         return <Loader />

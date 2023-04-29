@@ -37,7 +37,7 @@ const RoseListing = (props) => {
           //gestione errore
           console.log(err);
       })
-  },[page]);
+  },[page, basepath, token, props.limit]);
 
   const handlePageChange = (page) => {
     setPage(page);
