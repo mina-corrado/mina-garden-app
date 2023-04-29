@@ -1,8 +1,8 @@
-<svg viewBox="0 0 500 188">
+<svg viewBox="0 0 500 194">
 <path id="curve" d="M 0 100 C 200 200, 400 200, 500 100"></path>
-<text x="110">
+<text x="145">
     <textPath xlink:href="#curve">
-            Mina's Rose Garden
+            The passion for Roses
     </textPath>
 </text>
 </svg>

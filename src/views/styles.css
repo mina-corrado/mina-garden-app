@@ -16,12 +16,16 @@ input {
   font-size: 40px;
 }
 
+.title-logo.fixed-top {
+  font-size: 50px;
+}
+
 .title-logo path {
   fill: transparent;
 }
 
 .title-logo text {
-  fill: #fff;
+  fill: #360d0d;
 }
 
 .more-button {
