@@ -6,7 +6,8 @@ const FormRose = (props) => {
     const {data, onSubmit, handleChangeText, text, handleChangePhotos, hideFile} = props;
     const [title, setTitle] = useState(data ? data.title : '');
     const [category, setCategory] = useState(data ? data.category : '');
-    const [price, setPrice] = useState(data ? data.price : 0);
+    const [price, setPrice] = useState(data ? data.price.$numberDecimal : 0);
+    const [order, setOrder] = useState(data && data.order ? data.order : 0);
 
     useEffect(()=>{
         if(data && data.description)
@@ -34,6 +35,11 @@ const FormRose = (props) => {
                 <Form.Label>Prezzo (EUR)</Form.Label>
                 <Form.Control size="lg" 
                 placeholder="Prezzo" type="number" value={price} onChange={(e)=> setPrice(e.target.value)}/>
+            </Form.Group>
+            <Form.Group controlId="rose-order" className="mt-0">
+                <Form.Label>Ordine</Form.Label>
+                <Form.Control size="lg" 
+                placeholder="Ordine" type="number" value={order} onChange={(e)=> setOrder(e.target.value)}/>
             </Form.Group>
             <Form.Group controlId="rose-content" className="mt-3">
                 <Form.Label>Descrizione Rosa</Form.Label>

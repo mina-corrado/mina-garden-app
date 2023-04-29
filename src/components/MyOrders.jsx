@@ -6,7 +6,7 @@ const MyOrders = (props) => {
         <>
             <ul>
             {orders && orders.map((order) => 
-                <li key={order}>
+                <li key={order._id}>
                     <div>Ordine: {order._id} effettuato il {order.created.split('T')[0]} alle {order.created.split('.')[0].split('T')[1]} totale {order.total} EUR - STATUS: {order.status}
                     {props.isAdmin && <button style={{marginLeft: 4}}>Elabora</button>}
                     </div>

@@ -17,7 +17,7 @@ router.get('/api/roses', async (req, res, next) => {
     // }
     try {
         const {page = '1', size = '4'} = req.query;
-        const result = await Rose.find()
+        const result = await Rose.find().sort({order: 1})
                     .skip((Number(page)-1) * Number(size))
                     .limit(Number(size));
         const count = await Rose.count();

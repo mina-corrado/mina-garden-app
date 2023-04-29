@@ -93,10 +93,37 @@ router.post('/api/orders', async (req, res, next) => {
                 <br/>
                 <p>
                 Cordiali Saluti<br/>
-                <strong>Mina's Rose Garden</strong>
+                <strong>Mina Rose Garden</strong>
                 <p>`,
             };
             await sendMail(msg);
+
+            const toAdmin = {
+                to: process.env.ADMIN_EMAIL,
+                subject: `${newOrder.customer} - Ordine effettuato con successo`,
+                text: `${newOrder.customer} ha effettuato un ordine.\n Riepilogo: \n 
+                Rosa \t\t Prezzo (EUR) \t\t Quantità \n ${itemsString} \n Totale: ${result.total} EUR`,
+                html: `<strong>${newOrder.customer} ha effettuato un ordine</strong>
+                <br/>
+                Riepilogo:
+                <br/>
+                <table style="width:100%">
+                    <tr>
+                        <th>Rosa</th>
+                        <th>Prezzo (EUR)</th>
+                        <th>Quantità</th>
+                    </tr>
+                    ${itemsHtml}
+                    <tr><td>Totale: <strong>${result.total} EUR</strong></td></tr>
+                </table><br/>
+                <p>Non dimenticare di contattare il cliente!.</p>
+                <br/>
+                <p>
+                Cordiali Saluti<br/>
+                <strong>Mina Rose Garden</strong>
+                <p>`,
+            };
+            await sendMail(toAdmin);
         }
         return res.status(201).json({result});            
     } catch (err) {

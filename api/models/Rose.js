@@ -4,6 +4,7 @@ const roseSchema = new mongoose.Schema({
     description: {type: String, required: true},
     category: {type: String, required: false},
     photos: {type: [String], required: false},
-    price: {type: mongoose.Types.Decimal128, required: false}
+    price: {type: mongoose.Types.Decimal128, required: false},
+    order: {type: Number, required: false},
 });
 module.exports = mongoose.model('Rose', roseSchema);

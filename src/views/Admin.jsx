@@ -36,7 +36,8 @@ const Admin = () => {
         title: form.querySelector('#rose-form').value,
         category: form.querySelector('#rose-category').value,
         description: text,
-        price: form.querySelector('#rose-price').value
+        price: form.querySelector('#rose-price').value,
+        order: form.querySelector('#rose-order').value
       };
       const headers = {
           headers: {
@@ -128,7 +129,8 @@ const Admin = () => {
         title: form.querySelector('#rose-form').value,
         category: form.querySelector('#rose-category').value,
         description: text,
-        price: form.querySelector('#rose-price').value
+        price: form.querySelector('#rose-price').value,
+        order: form.querySelector('#rose-order').value
       };
       const id = rose._id;
 
@@ -159,6 +161,7 @@ const Admin = () => {
       setDisplayOrders(false);
       
       setRose(null);
+      setText("");
     }
     const handleClickEdit = () => {
       setDisplayNew(false);
@@ -166,6 +169,7 @@ const Admin = () => {
       setDisplayOrders(false);
       
       setRose(null);
+      setText("");
     }
     const handleClickOrders = () => {
       setDisplayNew(false);
@@ -173,6 +177,7 @@ const Admin = () => {
       setDisplayOrders(true);
       
       setRose(null);
+      setText("");
     }
     return(
         <Page>
