@@ -1,7 +1,7 @@
 import { Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import AddButton from "./AddButton";
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { OrderContext } from '../context/Context';
 
 const CardRose = (props) => {
@@ -37,9 +37,9 @@ const CardRose = (props) => {
     }
   }
 
-  useEffect(()=>{
-    console.log('order change! ', order)
-  }, [order]);
+  // useEffect(()=>{
+  //   console.log('order change! ', order)
+  // }, [order]);
   
   return (
     <>
