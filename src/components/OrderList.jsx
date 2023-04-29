@@ -34,13 +34,16 @@ const OrderList = () => {
         fetch(`${basepath}/api/orders`, headers).then(res=>res.json())
         .then(res=>{
             console.log(res);
+            setUserOrders((prevState)=>[...prevState, res.result]);
             setOrdered(true);
             setOrder([]);
         }, err=>{
             console.log(err);
         })
     }
-
+    const handleReset = () => {
+        setOrder([]);
+    }
     useEffect(()=>{
         if (!token) {
             return;
@@ -121,6 +124,7 @@ const OrderList = () => {
                     <Col>
                     </Col>
                     <Col lg="8" className='buy text-center'>
+                        <Button variant='secondary' onClick={handleReset} style={{marginRight: 8}}>Reset</Button>
                         <Button variant='primary' onClick={handleOrdina}>Ordina Ora</Button>
                     </Col>
                     <Col>

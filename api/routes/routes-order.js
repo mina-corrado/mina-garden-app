@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Order = require('../models/Order');
 const User = require('../models/User');
+const sendMail = require('../middleware/email');
 
 router.get('/api/orders', async (req, res, next) => {
     const userRequestId = req.body.id;
@@ -55,14 +56,48 @@ router.post('/api/orders', async (req, res, next) => {
     const password = req.body.password;
     const userRequestId = req.body.id;
     const userRequestBy = await User.findById(userRequestId);
-    // if (!userRequestBy.isAdmin) {
-    //     return next(new Error("No auth"));
-    // }
+    // console.log("post orders ",userRequestId)
+    if (userRequestBy._id != userRequestId) {
+        return next(new Error("No auth"));
+    }
     try {
 
         const newOrder = new Order({...body});
         const result = await newOrder.save();
-
+        const itemsString = result.items.map((item, idx)=>`${idx+1}) ${item.title} \t\t ${item.price} \t\t ${item.quantity} \n`).join(" ");
+        const itemsHtml = result.items.map((item)=>`<tr>
+                                                <td style="width:60%">${item.title}</td>
+                                                <td style="text-align: center">${item.price}</td>
+                                                <td style="text-align: center">${item.quantity}</td>
+                                            </tr>`).join(" ")
+        if(result && newOrder.customer){
+            const msg = {
+                to: userRequestBy.email,
+                subject: 'Ordine effettuato con successo',
+                text: `Grazie per aver effettuato un ordine.\n Riepilogo: \n 
+                Rosa \t\t Prezzo (EUR) \t\t Quantità \n ${itemsString} \n Totale: ${result.total} EUR`,
+                html: `<strong>Grazie per aver effettuato un ordine</strong>
+                <br/>
+                Riepilogo:
+                <br/>
+                <table style="width:100%">
+                    <tr>
+                        <th>Rosa</th>
+                        <th>Prezzo (EUR)</th>
+                        <th>Quantità</th>
+                    </tr>
+                    ${itemsHtml}
+                    <tr><td>Totale: <strong>${result.total} EUR</strong></td></tr>
+                </table><br/>
+                <p>Verrai contattato per i dettagli della spedizione e del pagamento dal nostro team.</p>
+                <br/>
+                <p>
+                Cordiali Saluti<br/>
+                <strong>Mina's Rose Garden</strong>
+                <p>`,
+            };
+            await sendMail(msg);
+        }
         return res.status(201).json({result});            
     } catch (err) {
         next(err);

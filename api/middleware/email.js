@@ -4,7 +4,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const sendMail = async (msg) => {
     if (!msg) {
-        msg = { // esempoio
+        msg = { // esempio
             to: process.env.SENDGRID_EMAIL,
             subject: 'Sending with Twilio SendGrid is Fun',
             text: 'and easy to do anywhere, even with Node.js',
@@ -14,6 +14,9 @@ const sendMail = async (msg) => {
     msg['from'] = process.env.SENDGRID_EMAIL;// Questa email deve essere verificata su SendGrid
     try {
         const res = await sgMail.send(msg);
+        if (res) {
+            console.log("send status ", res[0].statusCode);
+        }
         console.log(`sent... ${msg.to}: ${msg.text} `);
     } catch (error) {
         console.log("error ",error);
