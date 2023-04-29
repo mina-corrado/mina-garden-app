@@ -10,7 +10,7 @@ const Hero = (props) => {
         setIsReadMore(!isReadMore);
     };
     return (
-    <div className="p-5 mb-4 bg-light rounded-3">
+    <div className="p-xs-1 p-lg-5 mb-4 bg-light rounded-3">
         <div className="container-fluid py-5">
             <div className="position-relative w-100">
                 <img
