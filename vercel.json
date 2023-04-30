@@ -6,9 +6,5 @@
     ],
     "rewrites": [
         { "source": "/((?!(api|static)/.*).*)", "destination": "/" }
-    ],
-    "routes": [
-        { "src": "/api/(.*)", "dest": "/api" },
-        { "src": "^/static/(.*)", "dest": "/static/$1" }
     ]
 }
