@@ -41,7 +41,8 @@ const unless = (middleware, ...paths) => {
         });
         if (pathCheck) {
             // in caso mi arriva header verifico token per chiamate /put /post etc.
-            tokenVerify(req.header("Authorization"), req);
+            const authorization = req.header("Authorization");
+            tokenVerify(authorization, req);
         }
         pathCheck ? next() : middleware(req, res, next);
     };
