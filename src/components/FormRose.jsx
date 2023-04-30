@@ -12,7 +12,8 @@ const FormRose = (props) => {
     useEffect(()=>{
         if(data && data.description)
             handleChangeText(data.description);
-    },[data, handleChangeText])
+    // eslint-disable-next-line
+    }, [])
     
     return(
         <Form className="mt-0" onSubmit={onSubmit}>
