@@ -4,7 +4,8 @@
         { "src": "package.json", "use": "@vercel/static-build" },
         { "src": "/api/index.js", "use": "@vercel/node" }
     ],
-    "rewrites": [
-        { "source": "/((?!(api|static)/.*).*)", "destination": "/" }
+    "routes": [
+        { "src": "/api/(.*)", "dest": "/api" },
+        { "src": "^/(.*)", "dest": "/" }
     ]
 }
