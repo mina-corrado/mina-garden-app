@@ -25,6 +25,8 @@ const logger = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const auth = require('./middleware/auth');
 
+const tokenVerify = require('./middleware/tokenVerify');
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -37,6 +39,10 @@ const unless = (middleware, ...paths) => {
                 return req.path.startsWith(path.replace('^',''));
             return path === req.path || path.concat('/') === req.path;
         });
+        if (pathCheck) {
+            // in caso mi arriva header verifico token per chiamate /put /post etc.
+            tokenVerify(req.header("Authorization"));
+        }
         pathCheck ? next() : middleware(req, res, next);
     };
 };
