@@ -13,7 +13,7 @@ const MyOrders = (props) => {
     const [displayItem, setDisplayItem] = useState(items);
     const handleDisplayModificaStato = (order) => {
         const key = order._id;
-        setDisplayItem( {...displayItem, [key]: !displayItem[key] } );
+        setDisplayItem( {...items, [key]: !displayItem[key] } );
         setAddress(order.address);
         setStatus(order.status);
     }
