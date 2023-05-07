@@ -14,6 +14,7 @@ import jwt_decode from "jwt-decode";
 import NotFound from './views/NotFound';
 import Ordine from './views/Ordine';
 import Account from './views/Account';
+import ProtectedRoute from './views/ProtectedRoute';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -37,7 +38,10 @@ function App() {
               <Route path="/catalogo/page/:pageNum" element={<Catalog />} />
               <Route path="/catalogo" element={<Catalog />} />
               <Route path="/offerte" element={<Offerte />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin" element={<ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              } />
               <Route path="/account" element={<Account />} />
               <Route path="/login" element={<Login />} />
               <Route path="/registrati" element={<Registration />} />
