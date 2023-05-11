@@ -176,3 +176,10 @@ p.card-text p {
 .order-list .col-lg-6.round-top > div {
   border-bottom: 1px solid black;
 }
+
+.photos-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
+}

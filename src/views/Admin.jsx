@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import Page from '../components/Page';
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import "react-quill/dist/quill.snow.css";
@@ -9,6 +9,7 @@ import DisplayOrders from "../components/DisplayOrders";
 const Admin = () => {
     const [text, setText] = useState("");
     const [photos, setPhotos] = useState([]);
+    const [addPhotos, setAddPhotos] = useState([]);
     const [rose, setRose] = useState(null);
     const [displayNew, setDisplayNew] = useState(false);
     const [displayEdit, setDisplayEdit] = useState(false);
@@ -111,12 +112,14 @@ const Admin = () => {
       fetch(`${basepath}/api/roses/${id}`, headers).then(res=>res.json()).then(res=>{
         // success
         setRose(res);
+        setPhotos(res.photos);
       }, (err) => {
         console.log(err)
       })
     }
 
     const onSubmitModify = (event) => {
+      console.log('modifyRose');
       // modify rose
       event.preventDefault();
       // id and fetch rose
@@ -130,7 +133,8 @@ const Admin = () => {
         category: form.querySelector('#rose-category').value,
         description: text,
         price: form.querySelector('#rose-price').value,
-        order: form.querySelector('#rose-order').value
+        order: form.querySelector('#rose-order').value,
+        photos: photos
       };
       const id = rose._id;
 
@@ -179,6 +183,48 @@ const Admin = () => {
       setRose(null);
       setText("");
     }
+
+    const handleAddPhotos = () => {
+      const formData = new FormData();
+      for(let i=0; i < addPhotos.length; i++){
+        formData.append("photos", addPhotos[i]);
+      }
+      const headers = {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+          method: 'PATCH',
+          body: formData
+      }
+      fetch(`${basepath}/api/roses/${rose._id}/photos`, headers).then(res=>res.json())
+      .then(res=>{
+        console.log('success photos ', res);
+        setAddPhotos([]);
+        setRose((prevState)=>{ return {...prevState, photos: res.photos}});
+        setPhotos(res.photos);       
+      }, (err)=>{
+        //gestione errore foto
+        console.log(err);
+      })
+    }
+
+    
+    useEffect(()=>{
+      console.log("addPhotos => ", addPhotos)
+      if (addPhotos && addPhotos.length > 0) {
+        handleAddPhotos();
+      }
+    // eslint-disable-next-line
+    },[addPhotos])
+    // useEffect(()=>{
+    //   console.log("photos => ", photos)
+    // },[photos])
+    // useEffect(()=>{
+    //   console.log("rose => ", rose)
+    // },[rose])
+    // useEffect(()=>{
+    //   console.log("displayEdit => ", displayEdit)
+    // },[displayEdit])
     return(
         <Page>
           <Container className="admin-container">
@@ -203,7 +249,8 @@ const Admin = () => {
                 }
                 {displayEdit &&
                   <Container className="edit-rose-container">
-                    <h2>Modifica Rosa</h2>
+                    <h2 className="d-inline">Modifica Rosa</h2>
+                    <small> - {rose ? rose._id : ''}</small>
                     {!rose &&
                         <Form className="mt-0" onSubmit={onSubmitGetRose}>
                           <Form.Group controlId="roseid-form" className="mt-0">
@@ -230,9 +277,11 @@ const Admin = () => {
                     {rose &&
                       <FormRose
                         data={rose}
+                        photos={photos}
                         onSubmit={onSubmitModify} 
                         handleChangeText={handleChange}
-                        handleChangePhotos={(photos)=>setPhotos(photos)}
+                        handleChangePhotos={(photos)=>setAddPhotos(photos)}
+                        handleSetArrayPhotos={(photos)=>setPhotos(photos)}
                         text={text}
                         hideFile={true}></FormRose>
                     }

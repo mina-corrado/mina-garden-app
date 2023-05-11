@@ -53,16 +53,18 @@ router.patch('/api/roses/:id/photos', cloudMulter.array('photos', 12), async (re
 
     let result;
     try {
+        // console.log("FILES => ", req.files, req.file);
+        const {photos} = await Rose.findById(id);
         if(req.file){
             const photosCloud = [req.file.path];
             // console.log(`CLOUD one ${photosCloud}`);
-            const result = await Rose.updateOne({_id: id},{ photos: photosCloud});
+            const result = await Rose.updateOne({_id: id},{ photos: [...photos, photosCloud]});
 
             console.log("result ",result);
         } else if(req.files && req.files.length > 0){
             const photosCloud = req.files.map(file => file.path);
             // console.log(`CLOUD more ${photosCloud}`);
-            const result = await Rose.updateOne({_id: id},{ photos: photosCloud});
+            const result = await Rose.updateOne({_id: id},{ photos: [...photos, ...photosCloud]});
 
             console.log("result ",result);
         }
