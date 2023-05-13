@@ -7,10 +7,11 @@ import {DndContext} from '@dnd-kit/core';
 import {Droppable} from './Droppable';
 // eslint-disable-next-line
 import {Draggable} from './Draggable';
+import DragArea from "./Drag/DragArea";
 
 
 const FormRose = (props) => {
-    const {data, onSubmit, handleChangeText, text, handleChangePhotos, hideFile, handleSetArrayPhotos, photos} = props;
+    const {data, onSubmit, handleChangeText, text, handleChangePhotos, hideFile, handleSetArrayPhotos, isLoading, photos} = props;
     const [title, setTitle] = useState(data ? data.title : '');
     const [category, setCategory] = useState(data ? data.category : '');
     const [price, setPrice] = useState(data ? data.price.$numberDecimal : 0);
@@ -78,7 +79,7 @@ const FormRose = (props) => {
             {photos && photos.length > 0 &&
                 <Form.Group controlId="photosArray">
                     <Form.Label>Foto</Form.Label>
-                    <div className="photos-container">
+                    {/* <div className="photos-container">
                     {
                         photos.map((item, idx)=>
                             <div key={`${item}_idx${idx}`} 
@@ -86,9 +87,22 @@ const FormRose = (props) => {
                                 <img src={item} alt={`${item}`} width="150"/>
                                 <button style={{position: 'absolute', top: 0, right: 0}} 
                                 onClick={()=> handleDeletePhotoItem(item)} >&times;</button>
+                                <div style={{position: 'absolute', bottom: 1, left: 1, padding: '4px 6px 4px 6px', backgroundColor: '#FFC107'}}>{idx + 1}</div>
                             </div>
                         )
                     }
+                        <div>
+                            <button onClick={handleAddPhotoItem}disabled={deleteMode}>Aggiungi immagine</button>
+                            <Form.Control
+                            style={{display: 'none'}}
+                            type="file" 
+                            multiple
+                            onChange={(e) => handleChangePhotos(e.target.files)} />
+                        </div>
+                    </div> */}
+                    <DragArea dataItems={photos} 
+                    handleDelete={handleDeletePhotoItem} handleSetArray={handleSetArrayPhotos}
+                    isLoading={isLoading}/>
                     <div>
                         <button onClick={handleAddPhotoItem}disabled={deleteMode}>Aggiungi immagine</button>
                         <Form.Control
@@ -96,7 +110,6 @@ const FormRose = (props) => {
                         type="file" 
                         multiple
                         onChange={(e) => handleChangePhotos(e.target.files)} />
-                    </div>
                     </div>
                 </Form.Group>
             }

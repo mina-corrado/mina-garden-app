@@ -14,6 +14,7 @@ const Admin = () => {
     const [displayNew, setDisplayNew] = useState(false);
     const [displayEdit, setDisplayEdit] = useState(false);
     const [displayOrders, setDisplayOrders] = useState(false);
+    const [isLoadingPhoto, setIsLoadingPhoto] = useState(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleChange = useCallback(value => {
@@ -185,6 +186,7 @@ const Admin = () => {
     }
 
     const handleAddPhotos = () => {
+      setIsLoadingPhoto(true);
       const formData = new FormData();
       for(let i=0; i < addPhotos.length; i++){
         formData.append("photos", addPhotos[i]);
@@ -201,7 +203,8 @@ const Admin = () => {
         console.log('success photos ', res);
         setAddPhotos([]);
         setRose((prevState)=>{ return {...prevState, photos: res.photos}});
-        setPhotos(res.photos);       
+        setPhotos(res.photos);
+        setIsLoadingPhoto(false);       
       }, (err)=>{
         //gestione errore foto
         console.log(err);
@@ -283,6 +286,7 @@ const Admin = () => {
                         handleChangePhotos={(photos)=>setAddPhotos(photos)}
                         handleSetArrayPhotos={(photos)=>setPhotos(photos)}
                         text={text}
+                        isLoading={isLoadingPhoto}
                         hideFile={true}></FormRose>
                     }
                   </Container>

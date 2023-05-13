@@ -183,3 +183,9 @@ p.card-text p {
   flex-wrap: wrap;
   row-gap: 10px;
 }
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav .dropdown-menu {
+      z-index: 9999;
+  }
+}
